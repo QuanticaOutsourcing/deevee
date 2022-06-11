@@ -94,17 +94,17 @@
   <main class="px-3">
       <div class="row pb-5">
             <div class="col-2">
-                <button type="button" class="btn btn-primary" style="min-width: 100%; margin-right: 2px; padding-top: 10px; padding-bottom: 10px;">Esplora</button>
+                <button type="button" id="all" class="btn btn-primary btn-filter" style="min-width: 100%; margin-right: 2px; padding-top: 10px; padding-bottom: 10px;">Esplora</button>
             </div>
             <div class="col-2">
-                <button type="button" class="btn btn-outline-dark" style="min-width: 100%; margin-right: 2px; padding-top: 10px; padding-bottom: 10px; border: none;">Graphic Design</button>
+                <button type="button" id="graphic_design" class="btn btn-outline-dark btn-filter" style="min-width: 100%; margin-right: 2px; padding-top: 10px; padding-bottom: 10px; border: none;">Graphic Design</button>
             </div>
             <div class="col-2">
-                <button type="button" class="btn btn-outline-dark" style="min-width: 100%; margin-right: 2px; padding-top: 10px; padding-bottom: 10px; border: none;">Illustrazione</button>
+                <button type="button" id="illustrazione" class="btn btn-outline-dark btn-filter" style="min-width: 100%; margin-right: 2px; padding-top: 10px; padding-bottom: 10px; border: none;">Illustrazione</button>
             </div>
            
             <div class="col-2">
-                <button type="button" class="btn btn-outline-dark" style="min-width: 100%; margin-right: 2px; padding-top: 10px; padding-bottom: 10px; border: none;">Fotografia</button>
+                <button type="button" id="fotografia" class="btn btn-outline-dark btn-filter" style="min-width: 100%; margin-right: 2px; padding-top: 10px; padding-bottom: 10px; border: none;">Fotografia</button>
             </div>
             <div class="col-2">
 
@@ -126,7 +126,7 @@
       </div>
       <div class="col-3"></div>
     </div>
-    <div class="row" id="bididibodibibu" style="padding-top: 32px;">
+    <div class="row" id="imageContainer" style="padding-top: 32px;">
       
     </div>
   
@@ -146,14 +146,15 @@
 
     <script>
         const createTemplate = (images) => {
-          $('#bididibodibibu').empty();
+          $('#imageContainer').empty();
           images.forEach(x => {
               const template = ('<div class="col-4 px-2 pb-4"><div class="horrible-dummy" style="background: url('+ x.url +');">\
+                <a href="'+ x.google_drive +'">\
                 <div class="white-stripe">\
                   <p>' + x.title + '<strong> "'+x.project+'"</strong></p>\
                 </div>\
-              </div></div>');
-              $('#bididibodibibu').append(template);
+              </div></a></div>');
+              $('#imageContainer').append(template);
           })
         }
         $(document).ready(function(){
@@ -161,25 +162,46 @@
             //CAMBIATE LE IMMAGINI QUA
             url: "https://www.tag24.it/wp-content/uploads/2022/02/meme-putin.jpeg",
             title: "Alessia D'Aniello - progetto",
-            project: "Tesi"
+            project: "Tesi",
+            category: 'graphic_design',
+            author: "Alessia D'Aniello",
+            google_drive: 'https://google.it'
           },
           {
             //CAMBIATE LE IMMAGINI QUA
             url: "https://www.tag24.it/wp-content/uploads/2022/02/meme-putin.jpeg",
             title: "Marina di Roberto - progetto",
-            project: "Il mito di Persefone"
+            project: "Il mito di Persefone",
+            category: 'illustrazione',
+            author: 'Marina di Roberto',
+            google_drive: 'https://google.it'
           },
           {
             //CAMBIATE LE IMMAGINI QUA
             url: "https://www.tag24.it/wp-content/uploads/2022/02/meme-putin.jpeg",
             title: "Federica Cozzolino - progetto",
-            project: "Yo Season"
+            project: "Yo Season",
+            category: 'graphic_design',
+            author: 'Federica Cozzolino',
+            google_drive: 'https://google.it'
           },
           {
             //CAMBIATE LE IMMAGINI QUA
             url: "https://www.tag24.it/wp-content/uploads/2022/02/meme-putin.jpeg",
             title: "Federica Cozzolino - progetto",
-            project: "Restyling Kuhl"
+            project: "Restyling Kuhl",
+            category: 'fotografia',
+            author: 'Federica Cozzolino',
+            google_drive: 'https://google.it'
+          },
+          {
+            //CAMBIATE LE IMMAGINI QUA
+            url: "https://www.tag24.it/wp-content/uploads/2022/02/meme-putin.jpeg",
+            title: "Federica Cozzolino - progetto",
+            project: "Restyling Kuhl",
+            category: 'fotografia',
+            author: 'Federica Cozzolino',
+            google_drive: 'https://google.it'
           }];
 
         createTemplate(images);
@@ -194,6 +216,11 @@
           createTemplate(filteredImages);
         })
 
+        $('.btn-filter').click(function(btn) {
+          if($(btn.target).attr('id') === 'all'){createTemplate(images);return;}
+          const filteredImages = images.filter(x => x.category === $(btn.target).attr('id'));
+          createTemplate(filteredImages);
+        }); 
       });
       
 
