@@ -148,8 +148,8 @@
         const createTemplate = (images) => {
           $('#imageContainer').empty();
           images.forEach(x => {
-              const template = ('<div class="col-4 px-2 pb-4"><div class="horrible-dummy" style="background: url('+ x.url +');">\
-                <a href="'+ x.google_drive +'">\
+              const template = ('<div class="col-4 px-2 pb-4"><a style="text-decoration: none;" href="'+ x.google_drive +'"><div class="horrible-dummy" style="background: url('+ x.url +');">\
+                \
                 <div class="white-stripe">\
                   <p>' + x.title + '<strong> "'+x.project+'"</strong></p>\
                 </div>\
