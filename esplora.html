@@ -149,6 +149,9 @@
   <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
 
     <script>
+        const params = new Proxy(new URLSearchParams(window.location.search), {
+            get: (searchParams, prop) => searchParams.get(prop),
+          });
         const createTemplate = (images) => {
           $('#imageContainer').empty();
           images.forEach(x => {
@@ -297,8 +300,11 @@
             author: 'Federica Cozzolino',
             google_drive: 'https://drive.google.com/file/d/1CGRl2uSbDuW7C--dhLpNVXRRWNRSrDyi/view?usp=sharing'
           }];
+        let filtered = params.c ?
+                  images.filter(x => x.category === params.c)
+                : images;
 
-        createTemplate(images);
+        createTemplate(filtered);
         const fuse = new Fuse(images, {keys: [
           'title',
           'project'
